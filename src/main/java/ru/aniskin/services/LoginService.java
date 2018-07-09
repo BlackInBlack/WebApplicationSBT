@@ -1,4 +1,4 @@
-package ru.aniskin.service;
+package ru.aniskin.services;
 
 public class LoginService {
 

@@ -1,11 +1,13 @@
 package ru.aniskin.servlets;
-import ru.aniskin.service.LoginService;
+import ru.aniskin.models.User;
+import ru.aniskin.services.LoginService;
+import ru.aniskin.services.UserService;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-@WebServlet("/login")
+@WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -14,7 +16,7 @@ public class LoginServlet extends HttpServlet {
         out.println("<form action=\"login\" method=\"post\">\n" +
                 "    <p>Логин: <input type=\"text\" name=\"login\"></p>\n" +
                 "    <p>Пароль: <input type=\"password\" name=\"password\"></p>\n" +
-                "    <input type='submit'>Войти</input>\n" +
+                "    <input type='submit' value='Войти'>\n" +
                 "</form>");
     }
 
@@ -31,6 +33,12 @@ public class LoginServlet extends HttpServlet {
 
         if (result) {
             resp.sendRedirect("success");
+
+//            UserService userService = new UserService();
+//            User user = new User(login,password,"aniskin@mail.ru");
+//            userService.saveUser(user);
+//            userService.updateUser(user);
+
             return;
         }
         else {
