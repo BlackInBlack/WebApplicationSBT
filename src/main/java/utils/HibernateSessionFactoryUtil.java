@@ -10,18 +10,19 @@ public class HibernateSessionFactoryUtil {
 
     private HibernateSessionFactoryUtil() {}
 
-    public static SessionFactory getSessionFactory() throws Exception{
-        if (sessionFactory == null) {
-            try {
-                Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(User.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-                sessionFactory = configuration.buildSessionFactory(builder.build());
-
-            } catch (Exception e) {
-                System.out.println("Исключение!" + e);
-            }
-        }
-        return sessionFactory;
+    public static SessionFactory getSessionFactory(Class clazz) throws Exception{
+        return new Configuration().configure().addAnnotatedClass(clazz).buildSessionFactory();
+//        if (sessionFactory == null) {
+//            try {
+//                Configuration configuration = new Configuration().configure();
+//                configuration.addAnnotatedClass(User.class);
+//                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+//                sessionFactory = configuration.buildSessionFactory(builder.build());
+//
+//            } catch (Exception e) {
+//                System.out.println("Исключение!" + e);
+//            }
+//        }
+//        return sessionFactory;
     }
 }

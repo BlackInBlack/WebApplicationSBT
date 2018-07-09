@@ -1,6 +1,7 @@
 package ru.aniskin.servlets;
 import ru.aniskin.models.User;
 import ru.aniskin.services.LoginService;
+import ru.aniskin.services.LoginServiceImpl;
 import ru.aniskin.services.UserService;
 
 import java.io.*;
@@ -28,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         login = req.getParameter("login");
         password = req.getParameter("password");
 
-        LoginService loginService = new LoginService();
+        LoginService loginService = new LoginServiceImpl();
         boolean result = loginService.authenticate(login,password);
 
         if (result) {
