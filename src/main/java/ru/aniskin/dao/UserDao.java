@@ -3,7 +3,7 @@ package ru.aniskin.dao;
 import ru.aniskin.models.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import utils.HibernateSessionFactoryUtil;
+import utils.HibernateUtil;
 import java.util.List;
 
 public interface UserDao {

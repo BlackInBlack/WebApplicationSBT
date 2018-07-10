@@ -5,23 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "USERS")
+//@Table (name = "USERS")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int UserId;
-    @Column(name = "LOGIN")
+    //@Column(name = "LOGIN")
     private String Login;
-    @Column(name = "PASSWORD")
+    //@Column(name = "PASSWORD")
     private String Password;
-    @Column(name = "EMAIL")
+    //@Column(name = "EMAIL")
     private String Email;
-    @Column(name = "SESSIONID")
+    //@Column(name = "SESSIONID")
     private String SessionId;
 
     public User() {
 
     }
+
 
     public User(String login,String password, String email) {
         this.Login = login;

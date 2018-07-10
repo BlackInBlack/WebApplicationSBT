@@ -10,14 +10,14 @@ import utils.*;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import utils.HibernateSessionFactoryUtil;
+import utils.HibernateUtil;
 import java.util.List;
 import java.util.logging.Logger;
 
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    //private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl);
+
     private SessionFactory sessionFactory;
     private final org.jboss.logging.Logger logger = LoggerFactory.logger(UserDaoImpl.class);
 
@@ -27,7 +27,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findById(int id) throws ServiceException {
-//        return HibernateSessionFactoryUtil.getSessionFactory(User.class).openSession().get(User.class, id);
         Session session = this.sessionFactory.getCurrentSession();
         User user = (User) session.load(User.class, new Integer(id));
         logger.info("User success load. User details" + user);
@@ -37,17 +36,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addUser(User user) {
         try {
-            //Session session = this.sessionFactory.getCurrentSession();
-            //session.persist(user);
-//            SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory(User.class);
-//            Session session = sessionFactory.openSession();
-//            session.persist(user);
-//            sessionFactory.close();
-//            Transaction tx1 = session.beginTransaction();
-//            session.save(user);
-//            tx1.commit();
-//            session.close();
-            Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+            Session session = HibernateUtil.getSessionFactory().openSession();
             Transaction tx1 = session.beginTransaction();
             session.save(user);
             tx1.commit();
@@ -63,19 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        //Session session = null;
-        //session = this.sessionFactory.getCurrentSession();
-        //session.update(user);
-//        try {
-//            session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        Transaction tx1 = session.beginTransaction();
-//        session.update(user);
-//        tx1.commit();
-//        session.close();
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.update(user);
         tx1.commit();
@@ -105,17 +82,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @SuppressWarnings("uncheked")
     public List<User> findAllUser() {
-//        List<User> users = null;
-//        try {
-//            users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory(User.class).openSession().createQuery("From User").list();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return users;
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
         List<User> users = session.createQuery("from Users").list();
+        tx1.commit();
+        session.close();
         for(User user:users) {
             logger.info("User success delete. User details: " + user);
         }
