@@ -15,6 +15,7 @@ public class ServerMain {
             User user = new User("Aniskin","123","aniskin@mail.ru");
             userService.saveUser(user);
             userService.updateUser(user);
+
         }
         catch (HibernateError e) {
             System.out.println(e.fillInStackTrace());
