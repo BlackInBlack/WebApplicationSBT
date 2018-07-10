@@ -1,5 +1,7 @@
 package ru.aniskin;
 
+import ru.aniskin.dao.UserDao;
+import ru.aniskin.dao.UserDaoImpl;
 import ru.aniskin.models.User;
 import ru.aniskin.services.UserService;
 import ru.aniskin.services.UserServiceImpl;
@@ -10,11 +12,13 @@ public class ServerMain {
         try {
             UserServiceImpl userServiceImpl = new UserServiceImpl();
             User user = new User("Aniskin","123","aniskin@mail.ru");
+
+            userServiceImpl.setUserDao(new UserDaoImpl());
+
             userServiceImpl.saveUser(user);
             userServiceImpl.updateUser(user);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.fillInStackTrace());
         }
 

@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UserDao {
     User findById(int id) throws Exception;
-    void save(User user);
-    void update(User user);
-    void delete(User user);
-    List<User> findAll();
+    void addUser(User user);
+    void updateUser(User user);
+    void deleteUser(int id);
+    List<User> findAllUser();
 }
