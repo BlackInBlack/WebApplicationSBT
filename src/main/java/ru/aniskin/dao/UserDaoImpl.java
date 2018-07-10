@@ -2,6 +2,7 @@ package ru.aniskin.dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Repository;
 import ru.aniskin.dao.UserDao;
 import ru.aniskin.models.User;
@@ -25,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(int id) throws Exception {
+    public User findById(int id) throws ServiceException {
 //        return HibernateSessionFactoryUtil.getSessionFactory(User.class).openSession().get(User.class, id);
         Session session = this.sessionFactory.getCurrentSession();
         User user = (User) session.load(User.class, new Integer(id));
@@ -36,8 +37,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addUser(User user) {
         try {
-            Session session = this.sessionFactory.getCurrentSession();
-            session.persist(user);
+            //Session session = this.sessionFactory.getCurrentSession();
+            //session.persist(user);
 //            SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory(User.class);
 //            Session session = sessionFactory.openSession();
 //            session.persist(user);
@@ -46,9 +47,14 @@ public class UserDaoImpl implements UserDao {
 //            session.save(user);
 //            tx1.commit();
 //            session.close();
+            Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+            Transaction tx1 = session.beginTransaction();
+            session.save(user);
+            tx1.commit();
+            session.close();
             logger.info("User success add.");
         }
-        catch (Exception e) {
+        catch (ServiceException e) {
             System.out.println(e.fillInStackTrace());
             logger.info("User add error." + e.fillInStackTrace().getMessage());
         }
@@ -57,9 +63,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        Session session = null;
-        session = this.sessionFactory.getCurrentSession();
-        session.update(user);
+        //Session session = null;
+        //session = this.sessionFactory.getCurrentSession();
+        //session.update(user);
 //        try {
 //            session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 //        } catch (Exception e) {
@@ -69,6 +75,11 @@ public class UserDaoImpl implements UserDao {
 //        session.update(user);
 //        tx1.commit();
 //        session.close();
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        session.update(user);
+        tx1.commit();
+        session.close();
         logger.info("User success update.");
     }
 

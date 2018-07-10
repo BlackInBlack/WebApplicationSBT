@@ -10,10 +10,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int UserId;
-    @Column(name = "Login")
+    @Column(name = "LOGIN")
     private String Login;
+    @Column(name = "PASSWORD")
     private String Password;
+    @Column(name = "EMAIL")
     private String Email;
+    @Column(name = "SESSIONID")
     private String SessionId;
 
     public User() {

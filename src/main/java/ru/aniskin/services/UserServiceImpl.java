@@ -2,6 +2,7 @@ package ru.aniskin.services;
 
 import org.springframework.stereotype.Service;
 import ru.aniskin.dao.UserDao;
+import ru.aniskin.dao.UserDaoImpl;
 import ru.aniskin.models.User;
 
 import javax.transaction.Transactional;
@@ -9,9 +10,9 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+    private UserDaoImpl userDao =  new UserDaoImpl();;
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(UserDaoImpl userDao) {
         this.userDao = userDao;
     }
 
