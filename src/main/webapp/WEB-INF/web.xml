@@ -58,6 +58,4 @@
     <servlet-name>test</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
-
-
 </web-app>

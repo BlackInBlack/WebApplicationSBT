@@ -8,17 +8,11 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-@WebServlet(urlPatterns = "/login")
+@WebServlet(value = "/login")
 public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html"); //Задаем заголовок ответа
-        PrintWriter out = response.getWriter();
-        out.println("<form action=\"login\" method=\"post\">\n" +
-                "    <p>Логин: <input type=\"text\" name=\"login\"></p>\n" +
-                "    <p>Пароль: <input type=\"password\" name=\"password\"></p>\n" +
-                "    <input type='submit' value='Войти'>\n" +
-                "</form>");
+        request.getRequestDispatcher("login.jsp").forward(request,response);
     }
 
     @Override
