@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.aniskin.dao.UserDao;
 import ru.aniskin.dao.UserDaoImpl;
 import ru.aniskin.models.User;
-
+import java.lang.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -18,8 +18,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User findUser(int id) throws Exception {
+    public User findUserById(int id) {
         return this.userDao.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public User findUserByLogin(String login) {
+        return this.userDao.findByLogin(login);
     }
 
     @Override

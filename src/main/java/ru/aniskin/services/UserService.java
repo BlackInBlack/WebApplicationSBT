@@ -7,7 +7,9 @@ import ru.aniskin.models.User;
 import java.util.List;
 public interface UserService {
 
-    public User findUser(int id) throws Exception;
+    public User findUserById(int id) throws Exception;
+
+    public User findUserByLogin(String login) throws Exception;
 
     public void saveUser(User user);
 

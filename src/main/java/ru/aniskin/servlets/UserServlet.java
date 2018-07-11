@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/success")
-public class SuccessServlet  extends HttpServlet {
+@WebServlet("/user")
+public class UserServlet  extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("success.jps");
 //        requestDispatcher.forward(req, resp);
-        PrintWriter writer = resp.getWriter();
-        writer.println("Method GET from AddServlet");
+        req.getRequestDispatcher("user.jsp").forward(req,resp);
     }
 }

@@ -1,7 +1,9 @@
 package ru.aniskin.dao;
 
+import com.sun.org.apache.xpath.internal.operations.String;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.hibernate.query.Query;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Repository;
 import ru.aniskin.dao.UserDao;
@@ -13,7 +15,7 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 import java.util.List;
 import java.util.logging.Logger;
-
+import java.lang.*;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -29,6 +31,18 @@ public class UserDaoImpl implements UserDao {
     public User findById(int id) throws ServiceException {
         Session session = this.sessionFactory.getCurrentSession();
         User user = (User) session.load(User.class, new Integer(id));
+        logger.info("User success load. User details" + user);
+        return user;
+    }
+
+    @Override
+    public User findByLogin(java.lang.String login) throws ServiceException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        //User user = (User) session.createQuery("from User where login=:login").setParameter("login",login);
+        Query query = session.createQuery("from User where login = :paramName");
+        query.setParameter("paramName", login);
+        List list = query.list();
+        User user =(User) list.get(0);
         logger.info("User success load. User details" + user);
         return user;
     }
@@ -62,16 +76,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(int id) {
-//        Session session = null;
-//        try {
-//            session = HibernateSessionFactoryUtil.getSessionFactory(User.class).openSession();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        Transaction tx1 = session.beginTransaction();
-//        session.delete(user);
-//        tx1.commit();
-//        session.close();
        Session session = this.sessionFactory.getCurrentSession();
        User user = (User) session.load(User.class, new Integer(id));
 
